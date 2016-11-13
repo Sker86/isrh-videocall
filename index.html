@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>Realtime communication with WebRTC</title>
+
+  <link rel="stylesheet" href="css/mi.css" />
+
+</head>
+
+<body>
+
+  <h1 id="titulo">Sesion 4 ISRH</h1>
+
+  <textarea class="usuario" id="user_tit" rows="1" cols="50" disabled >Usuario:</textarea>
+  <textarea class="usuario" id="room_tit" rows="1" cols="50" disabled >Sala:</textarea>
+  <textarea id="user" class="login" rows="1" cols="50"></textarea>
+  <select id="room" class="login">
+    <option value="0">Alpha</option>
+    <option value="1">Beta</option>
+    <option value="2">Gamma</option>
+    <option value="3">Delta</option>
+  </select>
+  <br>
+  <button class="botones" id="join">Join</button>
+  <button class="botones" id="connect">Connect</button>
+  <button class="botones" id="exit">Exit</button>
+  <br>
+
+  <textarea class="titulos" id="local" rows="1" cols="50" disabled >Local</textarea>
+  <textarea class="titulos" id="remote" rows="1" cols="50" disabled >Remoto</textarea>
+
+  <br>
+  <video id="localVideo" autoplay></video>
+  <video id="remoteVideo" autoplay></video>
+  <br>
+  <textarea id="dataChannelSend" style="resize: none;" rows="1" cols="42" placeholder="Press Start, enter some text, then press Send."></textarea>
+  <button id="send">Send</button>
+  <textarea id="dataChannelReceive" style="resize: none;" rows="6" cols="49" disabled></textarea>
+
+
+  <script src="jquery-3.1.1.min.js"></script>
+  <script src="adapter.js"></script>
+  <script src="node_modules/socket.io-client/socket.io.js"></script>
+  <script src="client.js"></script>
+
+
+</body>
+
+</html>

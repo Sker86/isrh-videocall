@@ -1,0 +1,50 @@
+h1 {
+  color: White;
+}
+
+body {
+  background-color: darkblue;
+}
+
+.login {
+  border: none;
+  resize: none;
+  vertical-align: top;
+}
+
+.titulos {
+  border: none;
+  resize: none;
+  font-weight: bolder;
+  font-size: medium;
+  width: 316px;
+  background: transparent;
+  text-align: center;
+  color: white;
+}
+
+.usuario {
+  border: none;
+  resize: none;
+  font-weight: bolder;
+  font-size: small;
+  width: 316px;
+  background: transparent;
+  color: white;
+}
+
+.botones {
+  vertical-align: -webkit-baseline-middle;
+}
+
+#send {
+  vertical-align: top;
+}
+
+#dataChannelSend {
+  vertical-align: top;
+}
+
+#dataChannelReceive {
+  width: 314px;
+}
