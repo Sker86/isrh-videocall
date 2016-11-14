@@ -37,7 +37,7 @@ io.sockets.on('connection', function(socket) {
     log('Client leave room: ', sala);
     dataRooms[sala].fill(0);
     // for a real app, would be room-only (not broadcast)
-    socket.broadcast.emit('bye', sala);
+    io.sockets.in(sala).emit('bye', sala);
   });
 
   socket.on('create or join', function(message) {

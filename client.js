@@ -316,7 +316,10 @@ socket.on('bye', function (){
   window.stream.getVideoTracks().forEach(function(closeTrack){
     closeTrack.stop();
   });
-  pc.close();
+  try{pc.close()}
+  catch(error){
+    console.log(error)
+  };
   resetFormat();
   state("inicial");
 })
