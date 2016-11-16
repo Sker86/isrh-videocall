@@ -43,9 +43,10 @@ io.sockets.on('connection', function(socket) {
   socket.on('create or join', function(message) {
     var sms = JSON.parse(message);
     var room = sms.room;
-    log('Server: create or join in room ' + room+' user '+sms.user);
+    log('Server: create or join in room '+room+' user '+sms.user);
 
     var numClients = dataRooms[room][2];
+
     log('Room '+room+' now has '+numClients+' client(s)');
 
     if (numClients === 0) {

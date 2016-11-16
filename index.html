@@ -1,48 +1,111 @@
 <!DOCTYPE html>
 <html>
-
 <head>
+  <meta name="description" content="Práctica ISRH">
+  <meta name="author" content="Marcos Franco">
+  <link rel="icon" href="img/favicon.ico">
 
-  <title>Realtime communication with WebRTC</title>
-
+  <title>VideoCall - Marcos Franco</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/jumbotron.css" rel="stylesheet">
   <link rel="stylesheet" href="css/mi.css" />
 
 </head>
 
 <body>
 
-  <h1 id="titulo">Sesion 4 ISRH</h1>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a id="ttop" class="navbar-brand">Práctica final ISRH - Videocall</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <div class="navbar-form navbar-right">
+          <div class="form-group">
+            <!--input type="text" placeholder="Email" class="form-control"-->
 
-  <textarea class="usuario" id="user_tit" rows="1" cols="50" disabled >Usuario:</textarea>
-  <textarea class="usuario" id="room_tit" rows="1" cols="50" disabled >Sala:</textarea>
-  <textarea id="user" class="login" rows="1" cols="50"></textarea>
-  <select id="room" class="login">
-    <option value="0">Alpha</option>
-    <option value="1">Beta</option>
-    <option value="2">Gamma</option>
-    <option value="3">Delta</option>
-  </select>
-  <br>
-  <button class="botones" id="join">Join</button>
-  <button class="botones" id="connect">Connect</button>
-  <button class="botones" id="exit">Exit</button>
+            <textarea id="user" class="login" placeholder="Nombre de usuario" rows="1" cols="50"></textarea>
+
+          </div>
+          <div class="form-group">
+            <!--input type="password" placeholder="Password" class="form-control"-->
+
+            <select id="room" class="login">
+              <option value="0">Sala Alpha</option>
+              <option value="1">Sala Beta</option>
+              <option value="2">Sala Gamma</option>
+              <option value="3">Sala Delta</option>
+            </select>
+          </div>
+
+          <button class="btn btn-success" id="join">Unirse</button>
+          <button class="btn btn-success" id="connect">Conectar</button>
+          <button class="btn btn-danger" id="exit">Salir</button>
+        </div>
+      </div><!--/.navbar-collapse -->
+    </div>
+  </nav>
+
+  <div id="full">
+
+  </div>
+
+  <!--div class="jumbotron">
+    <!--div class="container">
+      <div class="col-md-6">
+        <h2>Heading</h2>
+
+      </div>
+      <div class="col-md-6">
+        <h2>Heading</h2>
+
+     </div>
+   </div>
+ </div-->
+
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+      <textarea class="titulos" id="local" rows="1" cols="50" disabled >Local</textarea>
+      <video id="localVideo" autoplay></video>
+    </div>
+    <div class="col-md-4">
+      <textarea class="titulos" id="remote" rows="1" cols="50" disabled >Remoto</textarea>
+      <video id="remoteVideo" autoplay></video>
+   </div>
+   <div class="col-md-2"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-8">
+      <div class="container-fluid">
+        <textarea id="dataChannelReceive" style="resize: none;" rows="6" cols="49" disabled></textarea>
+        <br>
+        <textarea id="dataChannelSend" style="resize: none;" rows="1" cols="42" placeholder="Introduce tu mensaje y pulsa enviar."></textarea>
+        <button id="send" class="btn btn-default">Enviar</button>
+        <br>
+        <textarea id="errorMsg" style="resize: none;" rows="6" cols="49" disabled></textarea>
+      </div>
+   </div>
+    <div class="col-md-2">
+
+   </div>
+  </div>
   <br>
 
-  <textarea class="titulos" id="local" rows="1" cols="50" disabled >Local</textarea>
-  <textarea class="titulos" id="remote" rows="1" cols="50" disabled >Remoto</textarea>
-
-  <br>
-  <video id="localVideo" autoplay></video>
-  <video id="remoteVideo" autoplay></video>
-  <br>
-  <textarea id="dataChannelSend" style="resize: none;" rows="1" cols="42" placeholder="Press Start, enter some text, then press Send."></textarea>
-  <button id="send">Send</button>
-  <textarea id="dataChannelReceive" style="resize: none;" rows="6" cols="49" disabled></textarea>
-  <br>
-  <textarea id="errorMsg" style="resize: none;" rows="6" cols="49" disabled></textarea>
 
 
   <script src="jquery-3.1.1.min.js"></script>
+  <script src="./js/jquery.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
   <script src="adapter.js"></script>
   <script src="node_modules/socket.io-client/socket.io.js"></script>
   <script src="client.js"></script>
