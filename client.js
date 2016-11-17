@@ -72,7 +72,6 @@ function preparePeerConnection(){
 
 function gotRemoteStream(event){
   remoteVideo.srcObject = event.stream;
-  handleSend(false);
 }
 
 function onDataChannel(event){
@@ -169,6 +168,8 @@ function onConnect(){
   pc.createOffer(null)
   .then(gotLocalDescriptionAndSend)
   .catch(handleError);
+  handleSend(false);
+  socket.emit('chat', null);
   state("final");
 }
 
@@ -191,7 +192,10 @@ function onExit(){
   pc.close();
   resetFormat();
   state("inicial");
-
+}
+//si cierra ventana
+window.onbeforeunload = function(e){
+	socket.emit('bye', sala);
 }
 //-----------------------FIN--EXIT----------------------------------------------
 
@@ -346,6 +350,10 @@ socket.on('message', function (sms){
       break;
     default:
   }
+});
+
+socket.on('chat', function (){
+  handleSend(false);
 });
 
 socket.on('bye', function (){

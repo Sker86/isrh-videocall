@@ -33,6 +33,10 @@ io.sockets.on('connection', function(socket) {
     socket.broadcast.emit('message', message);
   });
 
+  socket.on('chat', function(message) {
+    socket.broadcast.emit('chat', message);
+  });
+
   socket.on('bye', function(sala) {
     log('Client leave room: ', sala);
     dataRooms[sala].fill(0);
