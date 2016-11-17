@@ -1,3 +1,7 @@
+// ssl
+var URL_SERVER = 'https://localhost:3000';
+var socket = io.connect(URL_SERVER);
+// fin ssl
 var videoLocal = document.getElementById('localVideo');
 var videoRemote = document.getElementById('remoteVideo');
 var pc;
@@ -291,7 +295,7 @@ function state(state){
 //---------------------FIN-VISUAL-----------------------------------------------
 
 //-------------------------SOCKET-----------------------------------------------
-var socket = io.connect();
+//var socket = io.connect();
 
 socket.on('created', function(message){
   var sms = JSON.parse(message);

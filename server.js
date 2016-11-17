@@ -1,15 +1,32 @@
+var fs = require('fs');
+var options = {
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
+};
 var express = require('express');
+var https = require('https');
+
 var app = express();
-var http = require('http').Server(app);
-io = require('socket.io').listen(http);
+
+//http.createServer(app).listen(80);
+var server = https.createServer(options, app).listen(3000);
+
+app.use(express.static('.'));
+
+//------------------------------------------------------------------------------
+/*var express = require('express');
+var app = express();
+var http = require('http').Server(app);*/
+io = require('socket.io')(server);
+//io = require('socket.io').listen(https);
 var dataRooms = new Array(4).fill(new Array(3).fill(0))
 //dataRooms --> [usuario1, usuario2, numusers]
-
+/*
 app.use(express.static('.'));
 
 http.listen(3000, function(){
   console.log('listening on *:3000');
-});
+});*/
 
 var boolDebug = 1;
 function mydebug(sms){
@@ -28,6 +45,7 @@ io.sockets.on('connection', function(socket) {
   }
 
   socket.on('message', function(message) {
+    //mydebug(message);
     log('Client said: ', message);
     // for a real app, would be room-only (not broadcast)
     socket.broadcast.emit('message', message);
@@ -46,6 +64,7 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('create or join', function(message) {
     var sms = JSON.parse(message);
+    //mydebug(sms);
     var room = sms.room;
     log('Server: create or join in room '+room+' user '+sms.user);
 
