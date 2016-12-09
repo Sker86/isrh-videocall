@@ -83,8 +83,9 @@ socket.on('game', function (message){
     posRaq2=sms.raq1;
     anglex=-sms.bolax;
     angley=sms.bolay;
-    pointsP1=sms.scoreP1;
-    pointsP2=sms.scoreP2;
+    pointsP1=sms.scoreP2;
+    pointsP2=sms.scoreP1;
+    marcador();
   }
 });
 
@@ -219,6 +220,12 @@ var sumx    = Math.random() < 0.5 ? -1 : 1;
 var sumy    = Math.random() < 0.5 ? -1 : 1;
 
 function setUniforms(x) {
+  if(!conectado){
+    stopPong(0);
+    resetPong();
+    pointsP1=0;
+    pointsP2=0;
+  }
   if((!stop)&&(anfitrion)){
     angle += 0.005;
   }
@@ -295,22 +302,26 @@ function stopPong(x){
   stop=1;
   if(x){
     setTimeout(function(){
-      posRaq1=0;
-      posRaq2=0;
-      anglex=0;
-      angley=0;
-      sumx = Math.random() < 0.5 ? -0.5 : 1;
-      sumy = Math.random() < 0.5 ? -1 : 0.5;
-      marcador(x);
+      resetPong();
+      marcador();
       playPong();
     }, 2000);
   }
 }
+function resetPong(){
+  posRaq1=0;
+  posRaq2=0;
+  anglex=0;
+  angley=0;
+  sumx = Math.random() < 0.5 ? -0.5 : 1;
+  sumy = Math.random() < 0.5 ? -1 : 0.5;
+}
 function playPong(){
   stop=0;
 }
-function marcador(x){
-  console.log("Ha marcado el jugador "+x);
+function marcador(){
+  $("#puntosLocal")[0].value = "Puntos: "+pointsP1;
+  $("#puntosRemoto")[0].value = "Puntos: "+pointsP2;
 }
 
 function sendGameP1(){

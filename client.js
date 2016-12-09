@@ -271,6 +271,7 @@ function state(state){
       $("#user").show();
       $("#room").show();
       handleSend(true);
+      clearMarcador();
       break;
     case "intermedio":
       //botones
@@ -280,6 +281,7 @@ function state(state){
       //cuadros de texto
       $("#user").hide();
       $("#room").hide();
+      resetMarcador();
       break;
     case "final":
       //botones
@@ -289,10 +291,21 @@ function state(state){
       //cuadros de texto
       $("#user").hide();
       $("#room").hide();
+      resetMarcador();
       break;
     default:
       //default code block
   }
+}
+
+function resetMarcador(){
+  $("#puntosLocal")[0].value = "Puntos: 0";
+  $("#puntosRemoto")[0].value = "Puntos: 0";
+}
+
+function clearMarcador(){
+  $("#puntosLocal")[0].value = "";
+  $("#puntosRemoto")[0].value = "";
 }
 //---------------------FIN-VISUAL-----------------------------------------------
 
@@ -316,6 +329,7 @@ socket.on('joined', function(message){
     usuario = sms.usuario1;
     $("#dataChannelReceive").append("Te has unido a la sala "+nameRoom[sala]+" con el usuario "+usuario+"\n");
   }
+  $("#dataChannelReceive").append("Para iniciar o pausar la partida pulsa P. El movimiento de la raqueta se hace con las flechas up y down.\n");
   //$("#dataChannelReceive").append("Bienvenido a la sala "+nameRoom[sala]+"\n");
   bajar();
   titles(true);
