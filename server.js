@@ -36,8 +36,6 @@ function mydebug(sms){
 }
 
 io.sockets.on('connection', function(socket) {
-
-  // convenience function to log server messages on the client
   function log() {
     var array = ['Message from server:'];
     array.push.apply(array, arguments);
@@ -45,10 +43,12 @@ io.sockets.on('connection', function(socket) {
   }
 
   socket.on('message', function(message) {
-    //mydebug(message);
     log('Client said: ', message);
-    // for a real app, would be room-only (not broadcast)
     socket.broadcast.emit('message', message);
+  });
+
+  socket.on('game', function(message) {
+    socket.broadcast.emit('game', message);
   });
 
   socket.on('chat', function(message) {
@@ -58,7 +58,6 @@ io.sockets.on('connection', function(socket) {
   socket.on('bye', function(sala) {
     log('Client leave room: ', sala);
     dataRooms[sala].fill(0);
-    // for a real app, would be room-only (not broadcast)
     io.sockets.in(sala).emit('bye', sala);
   });
 

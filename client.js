@@ -24,6 +24,7 @@ var yo;
 var usuario;
 var anfitrion;
 var abierto=false;
+var conectado=false;
 
 var boolDebug = 1;
 function mydebug(sms){
@@ -175,6 +176,7 @@ function onConnect(){
   handleSend(false);
   socket.emit('chat', null);
   state("final");
+  conectado=true;
 }
 
 function gotLocalDescriptionAndSend(description){
@@ -358,9 +360,11 @@ socket.on('message', function (sms){
 
 socket.on('chat', function (){
   handleSend(false);
+  conectado=true;
 });
 
 socket.on('bye', function (){
+  conectado=false;
   if (abierto){
     window.stream.getVideoTracks().forEach(function(closeTrack){
       closeTrack.stop();

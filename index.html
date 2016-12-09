@@ -12,7 +12,7 @@
 
 </head>
 
-<body>
+<body onload="initWebGL()">
 
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -70,38 +70,47 @@
  </div-->
 
   <div class="row chat">
-    <div class="col-md-2"></div>
-    <div class="col-md-4">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
       <textarea class="titulos" id="local" rows="1" cols="50" disabled >Local</textarea>
       <video id="localVideo" autoplay></video>
     </div>
     <div class="col-md-4">
+      <div class="chat">
+        <canvas id="my-canvas" width="400" height="300">
+            Your browser does not support the HTML5 canvas element.
+        </canvas>
+      </div>
+    </div>
+    <div class="col-md-3">
       <textarea class="titulos" id="remote" rows="1" cols="50" disabled >Remoto</textarea>
       <video id="remoteVideo" autoplay></video>
    </div>
-   <div class="col-md-2"></div>
+   <div class="col-md-1"></div>
   </div>
+
   <div class="row">
     <div class="col-md-2">
 
     </div>
     <div class="col-md-8">
+
       <div class="container-fluid chat">
+
         <textarea id="dataChannelReceive" style="resize: none;" rows="6" cols="49" disabled></textarea>
         <br>
         <textarea id="dataChannelSend" style="resize: none;" rows="1" cols="42" placeholder="Introduce tu mensaje y pulsa enviar."></textarea>
         <button id="send" class="btn btn-default">Enviar</button>
         <br>
-        <textarea id="errorMsg" style="resize: none;" rows="6" cols="49" disabled></textarea>
+
       </div>
    </div>
     <div class="col-md-2">
 
    </div>
   </div>
+
   <br>
-
-
 
   <script src="jquery-3.1.1.min.js"></script>
   <script src="./js/jquery.min.js"></script>
@@ -109,8 +118,25 @@
   <script src="adapter.js"></script>
   <script src="node_modules/socket.io-client/socket.io.js"></script>
   <script src="client.js"></script>
-
-
+  <script src="./js/gl-matrix-min.js"></script>
+  <script id="shader-vs" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+    attribute vec3 aVertexColor;
+    varying highp vec4 vColor;
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+    void main(void) {
+      gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+      vColor = vec4(aVertexColor, 1.0);
+    }
+  </script>
+  <script id="shader-fs" type="x-shader/x-fragment">
+    varying highp vec4 vColor;
+    void main(void) {
+      gl_FragColor = vColor;
+    }
+  </script>
+  <script src="pong.js"></script>
 </body>
 
 </html>
